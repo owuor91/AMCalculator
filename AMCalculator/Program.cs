@@ -27,4 +27,16 @@ namespace AMCalculator
         public double Term1 { get { return _term1; } }
         public double Term2 { get { return _term2; } }
     }
+
+
+    public class Answer
+    {
+        private readonly double _value;
+        public Answer(double value)
+        {
+            _value = value;
+        }
+
+        public double Value { get { return _value; } }
+    }
 }
