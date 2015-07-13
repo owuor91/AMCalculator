@@ -12,6 +12,8 @@ namespace AMCalculator
         static void Main(string[] args)
         {
             var system = ActorSystem.Create("calculator-system");
+            IActorRef calculator = system.ActorOf<CalculatorActor>("calculator");
+            calculator.Tell(new Add(1, 7));
         }
     }
 
