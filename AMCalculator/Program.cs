@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Akka.Actor;
 
 namespace AMCalculator
 {
@@ -10,6 +11,7 @@ namespace AMCalculator
     {
         static void Main(string[] args)
         {
+            var system = ActorSystem.Create("calculator-system");
         }
     }
 
@@ -38,5 +40,13 @@ namespace AMCalculator
         }
 
         public double Value { get { return _value; } }
+    }
+
+    public class CalculatorActor : ReceiveActor
+    {
+        public CalculatorActor()
+        {
+
+        }
     }
 }
