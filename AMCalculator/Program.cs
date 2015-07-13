@@ -13,9 +13,9 @@ namespace AMCalculator
         {
             var system = ActorSystem.Create("calculator-system");
             IActorRef calculator = system.ActorOf<CalculatorActor>("calculator");
-            //calculator.Tell(new Add(1, 7));
             var answer = calculator.Ask<Answer>(new Add(2, 9)).Result;
-            Console.WriteLine("Answer: " +answer);
+            var answerSub = calculator.Ask<Answer>(new Subtract(78,29)).Result; 
+            Console.WriteLine("Answer: " +answerSub.Value);
             Console.ReadKey();
         }
     }
@@ -26,6 +26,22 @@ namespace AMCalculator
         private readonly double _term2;
 
         public Add(double term1, double term2)
+        {
+            _term1 = term1;
+            _term2 = term2;
+        }
+
+        public double Term1 { get { return _term1; } }
+        public double Term2 { get { return _term2; } }
+    }
+
+
+    public class Subtract
+    {
+        private readonly double _term1;
+        private readonly double _term2;
+
+        public Subtract(double term1, double term2)
         {
             _term1 = term1;
             _term2 = term2;
@@ -52,6 +68,7 @@ namespace AMCalculator
         public CalculatorActor()
         {
             Receive<Add>(add => Sender.Tell(new Answer(add.Term1 + add.Term2)));
+            Receive<Subtract>(sub => Sender.Tell(new Answer(sub.Term1 - sub.Term2)));
         }
     }
 }
