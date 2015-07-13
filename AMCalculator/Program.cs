@@ -14,9 +14,13 @@ namespace AMCalculator
             var system = ActorSystem.Create("calculator-system");
             IActorRef calculator = system.ActorOf<CalculatorActor>("calculator");
             var answer = calculator.Ask<Answer>(new Add(2, 9)).Result;
-            var answerSub = calculator.Ask<Answer>(new Subtract(78,29)).Result;
             Console.WriteLine("Answer: " + answer.Value);
+
+            var answerSub = calculator.Ask<Answer>(new Subtract(78,29)).Result;
             Console.WriteLine("Answer: " +answerSub.Value);
+
+            var lastAnswer = calculator.Ask<Answer>(GetLastAnswer.Instance).Result;
+            Console.WriteLine("Last Answer: " + lastAnswer.Value);
             Console.ReadKey();
         }
     }
@@ -62,6 +66,13 @@ namespace AMCalculator
         }
 
         public double Value { get { return _value; } }
+    }
+
+    public class GetLastAnswer
+    {
+        private static readonly GetLastAnswer _instance = new GetLastAnswer();
+        private GetLastAnswer() { }
+        public static GetLastAnswer Instance { get { return _instance; } }
     }
 
     public class CalculatorActor : ReceiveActor
