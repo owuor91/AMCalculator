@@ -12,4 +12,19 @@ namespace AMCalculator
         {
         }
     }
+
+    public class Add
+    {
+        private readonly double _term1;
+        private readonly double _term2;
+
+        public Add(double term1, double term2)
+        {
+            _term1 = term1;
+            _term2 = term2;
+        }
+
+        public double Term1 { get { return _term1; } }
+        public double Term2 { get { return _term2; } }
+    }
 }
