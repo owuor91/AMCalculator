@@ -92,6 +92,8 @@ namespace AMCalculator
                 answer = sub.Term1 - sub.Term2;
                 Sender.Tell(new Answer(answer));
             });
+
+            Receive<GetLastAnswer>(last=> Sender.Tell(new Answer(answer)));
         }
     }
 }
