@@ -13,7 +13,10 @@ namespace AMCalculator
         {
             var system = ActorSystem.Create("calculator-system");
             IActorRef calculator = system.ActorOf<CalculatorActor>("calculator");
-            calculator.Tell(new Add(1, 7));
+            //calculator.Tell(new Add(1, 7));
+            var answer = calculator.Ask<Answer>(new Add(2, 9)).Result;
+            Console.WriteLine("Answer: " +answer);
+            Console.ReadKey();
         }
     }
 
@@ -48,7 +51,7 @@ namespace AMCalculator
     {
         public CalculatorActor()
         {
-
+            Receive<Add>(add => Sender.Tell(new Answer(add.Term1 + add.Term2)));
         }
     }
 }
